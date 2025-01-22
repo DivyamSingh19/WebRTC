@@ -1,0 +1,4 @@
+implement one way Peer to Peer sharing (initially)
+extras -> 1. One sender multiple receivers
+          2. Implement two way peer to peer sharing
+          3. Replace p2p logic with sfu logic
