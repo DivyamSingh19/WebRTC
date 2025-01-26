@@ -1,7 +1,7 @@
 import { WebSocket, WebSocketServer } from "ws";
 
 const wss = new WebSocketServer({port:8080});
-
+ 
 wss.on('connection',function connection(ws){
 
     let senderSocket :null | WebSocket =null;          
@@ -12,7 +12,7 @@ wss.on('connection',function connection(ws){
       
         //identify as sender
         //identify as receiver
-        /// create offer -> from sender
+        /// create offer -> from senderx
         ///create answer -> from receiver
         /// add ice candidates
         /// remove ice candidates
@@ -30,8 +30,14 @@ wss.on('connection',function connection(ws){
         }else if(message.type==="create-answer"){
             if(!receiverSocket) return;
             receiverSocket.send(JSON.stringify({type:"offer",offer:message.offer}));
+        }if(ws === senderSocket){
+            receiverSocket?.send(JSON.stringify({type:'iceCandidate',candidate:message.candidate}));
+        }else if(ws === receiverSocket){
+            senderSocket?.send(JSON.stringify({type:'iceCandidate',candidate:message.candidate}))
         }
 
     });
+    console.log("connected to ws");
+    
     
 })
